@@ -1,4 +1,4 @@
-# 🗂️ TaskBE — Backend API (Node.js + Express)
+# TaskBE — Backend API (Node.js + Express)
 
 This is the backend service for the Task Dashboard application.
 It exposes a RESTful API for managing tasks using:
@@ -8,8 +8,6 @@ It exposes a RESTful API for managing tasks using:
 - Validation layer
 - Clean controller + routing architecture
 
-![High Level Design](./assets/high.png)
-
 ## 🛠️ How to Run the Backend
 
 1. Move into the backend project directory:
@@ -48,7 +46,7 @@ It exposes a RESTful API for managing tasks using:
    http://localhost:4000
 
 
-## 🧩 Core Concepts
+## Core Concepts
 
 ### In-Memory Storage
 Located in: src/models/task.store.js
