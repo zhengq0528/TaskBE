@@ -1,0 +1,29 @@
+Backend (Node + Express)
+
+RESTful API
+
+In-memory storage with Map<ID, Task>
+
+Task model class
+
+Validation layer (src/validation/task.validation.js)
+
+CRUD operations
+
+Clean architecture:
+
+src/
+  models/
+  controllers/
+  routes/
+  validation/
+
+How to run the backend
+
+CD TaskBE
+
+npm install
+
+npm run dev
+
+URL: https://localhost:4000
