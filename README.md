@@ -30,25 +30,6 @@ It exposes a RESTful API for managing tasks using:
    http://localhost:4000
 
 
-## 🛠️ How to Run the Backend
-
-1. Move into the backend project directory:
-
-   cd TaskBE
-
-2. Install dependencies:
-
-   npm install
-
-3. Start the development server:
-
-   npm run dev
-
-4. Backend will run on:
-
-   http://localhost:4000
-
-
 ## Core Concepts
 
 ### In-Memory Storage
