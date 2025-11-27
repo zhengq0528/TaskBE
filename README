@@ -1,29 +1,60 @@
-Backend (Node + Express)
+# 🗂️ TaskBE — Backend API (Node.js + Express)
 
-RESTful API
+This is the backend service for the Task Dashboard application.
+It exposes a RESTful API for managing tasks using:
 
-In-memory storage with Map<ID, Task>
+- In-memory storage (`Map<ID, Task>`)
+- Task model class
+- Validation layer
+- Clean controller + routing architecture
 
-Task model class
 
-Validation layer (src/validation/task.validation.js)
+## 🛠️ How to Run the Backend
 
-CRUD operations
+1. Move into the backend project directory:
 
-Clean architecture:
+   cd TaskBE
 
-src/
-  models/
-  controllers/
-  routes/
-  validation/
+2. Install dependencies:
 
-How to run the backend
+   npm install
 
-CD TaskBE
+3. Start the development server:
 
-npm install
+   npm run dev
 
-npm run dev
+4. Backend will run on:
 
-URL: https://localhost:4000
+   http://localhost:4000
+
+
+## 🛠️ How to Run the Backend
+
+1. Move into the backend project directory:
+
+   cd TaskBE
+
+2. Install dependencies:
+
+   npm install
+
+3. Start the development server:
+
+   npm run dev
+
+4. Backend will run on:
+
+   http://localhost:4000
+
+
+## 🧩 Core Concepts
+
+### In-Memory Storage
+Located in: src/models/task.store.js
+
+Uses:
+const tasks = new Map();
+
+This acts like a lightweight database.
+Data resets when the server restarts.
+
