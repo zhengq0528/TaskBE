@@ -8,8 +8,7 @@ It exposes a RESTful API for managing tasks using:
 - Validation layer
 - Clean controller + routing architecture
 
-![High Level Design](high.png)
-
+![High Level Design](./assets/high.png)
 
 ## 🛠️ How to Run the Backend
 
