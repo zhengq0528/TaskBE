@@ -8,7 +8,10 @@ It exposes a RESTful API for managing tasks using:
 - Validation layer
 - Clean controller + routing architecture
 
-## 🛠️ How to Run the Backend
+![High Level Design](./assets/high.png)
+
+
+## 🛠 How to Run the Backend
 
 1. Move into the backend project directory:
 
