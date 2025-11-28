@@ -1,35 +1,36 @@
 // src/realtime/socket.js
 const { Server } = require('socket.io');
-const { tasks } = require('../models/task.store');
+const { getAllTasksSync } = require('../models/task.store');
 
 let ioInstance = null;
 
-function initSocket(server) {
-  const allowedOrigin = process.env.CLIENT_ORIGIN || 'http://localhost:5173';
-
-  ioInstance = new Server(server, {
+function initSocket(server, allowedOrigins = ['http://localhost:5173']) {
+  const io = new Server(server, {
     cors: {
-      origin: allowedOrigin,
-      methods: ['GET', 'POST', 'PUT', 'DELETE'],
+      origin: allowedOrigins,
     },
   });
 
-  ioInstance.on('connection', (socket) => {
-    console.log('Client connected:', socket.id);
+  io.on('connection', (socket) => {
+    console.log('WS client connected:', socket.id);
 
-    // send initial snapshot to this client
-    socket.emit('tasks:init', Array.from(tasks.values()));
+    // send all tasks when a client connects
+    socket.emit('tasks:init', getAllTasksSync());
 
     socket.on('disconnect', () => {
-      console.log('Client disconnected:', socket.id);
+      console.log('WS client disconnected:', socket.id);
     });
   });
 
-  return ioInstance;
+  ioInstance = io;
+  return io;
 }
 
 function getIo() {
   return ioInstance;
 }
 
-module.exports = { initSocket, getIo };
+module.exports = {
+  initSocket,
+  getIo,
+};

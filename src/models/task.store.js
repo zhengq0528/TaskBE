@@ -44,7 +44,12 @@ function generateId() {
   return id;
 }
 
+function getAllTasksSync() {
+  return Array.from(tasks.values());
+}
+
 module.exports = {
   tasks,
   generateId,
+  getAllTasksSync,
 };
