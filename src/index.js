@@ -8,7 +8,6 @@ const { initSocket } = require('./realtime/socket');
 
 const app = express();
 
-// CORS: during dev allow localhost:5173; in prod set CLIENT_ORIGIN on Railway
 const allowedOrigin = process.env.CLIENT_ORIGIN || 'http://localhost:5173';
 
 app.use(
@@ -25,13 +24,11 @@ app.get('/health', (req, res) => {
 
 app.use('/api/tasks', tasksRouter);
 
-// Only start HTTP + WebSocket server when run directly (not in tests)
 if (require.main === module) {
   const PORT = process.env.PORT || 4000;
 
   const server = http.createServer(app);
 
-  // Initialise Socket.IO on this HTTP server
   initSocket(server);
 
   server.listen(PORT, () => {
@@ -39,5 +36,4 @@ if (require.main === module) {
   });
 }
 
-// Export the Express app for Jest / supertest
 module.exports = app;
