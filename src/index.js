@@ -19,3 +19,6 @@ const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`Task API listening on port ${PORT}`);
 });
+
+// Export the app so Jest + supertest can use it
+module.exports = app;
