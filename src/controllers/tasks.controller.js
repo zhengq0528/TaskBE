@@ -1,15 +1,14 @@
 const Task = require('../models/task.model');
 const { tasks, generateId } = require('../models/task.store');
+const { validateTaskPayload } = require('../validation/task.validation');
 
 // GET /api/tasks
 function getAllTasks(req, res) {
-  // ----------------------------------------------
-  // Pretend this is a real DB query:
-  /*
+/*
       SQL (Postgres/MySQL):
       SELECT * FROM tasks;
       We probably want to have user ID for selecting particular users
-  */
+ */
   const allTasks = Array.from(tasks.values());
   res.json({ data: allTasks });
 }
@@ -18,7 +17,7 @@ function getAllTasks(req, res) {
 function createTask(req, res) {
 
 
-    /*  INSERT INTO tasks (id, title, description, status, priority, assignee, due_date)
+   /*  INSERT INTO tasks (id, title, description, status, priority, assignee, due_date)
         VALUES ($1, $2, $3, $4, $5, $6, $7);*/
   const payload = req.body || {};
 
@@ -32,6 +31,7 @@ function createTask(req, res) {
   }
 
   const id = generateId();
+  const now = new Date().toISOString();
 
   const newTask = new Task({
     id,
@@ -41,6 +41,9 @@ function createTask(req, res) {
     priority: payload.priority,
     assignee: payload.assignee,
     dueDate: payload.dueDate,
+    createdAt: now,
+    updatedAt: null,
+    tags: payload.tags,
   });
 
   tasks.set(id, newTask);
@@ -71,14 +74,19 @@ function updateTask(req, res) {
   const { valid, errors } = validateTaskPayload(payload, { isUpdate: true });
 
   const existing = tasks.get(id);
+  const now = new Date().toISOString();
 
   // Merge existing with incoming changes
   const updatedTask = new Task({
     ...existing,
     ...payload,
     id, // ensure id never changes
+    createdAt: existing.createdAt,
+    updatedAt: now,
+    tags: payload.tags !== undefined ? payload.tags : existing.tags,
   });
 
+  // SQL query UPDATE.....
   tasks.set(id, updatedTask);
 
   res.json({ data: updatedTask });
