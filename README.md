@@ -4,14 +4,15 @@ This is the backend service for the Task Dashboard application.
 It exposes a RESTful API for managing tasks using:
 
 - In-memory storage (`Map<ID, Task>`)
-- Task model class
-- Validation layer
-- Clean controller + routing architecture
+- Express.js for REST API
+- Controller + router architecture
+- Socket.IO for real-time dashboard updates
+- Jest + Supertest for backend testing
 
 ![High Level Design](./assets/high.png)
 
 
-## 🛠 How to Run the Backend
+## How to Run the Backend
 
 1. Move into the backend project directory:
 
@@ -29,15 +30,26 @@ It exposes a RESTful API for managing tasks using:
 
    http://localhost:4000
 
+## How to Test
 
-## Core Concepts
+1. npm test
 
-### In-Memory Storage
-Located in: src/models/task.store.js
 
-Uses:
-const tasks = new Map();
+## RESTful Task Management
+- GET /api/tasks — list tasks
+- POST /api/tasks — create task
+- GET /api/tasks/:id — get one
+- PUT /api/tasks/:id — update
+- DELETE /api/tasks/:id — delete
+- Includes createdAt and updatedAt timestamps
+- Supports tags (string array)
 
-This acts like a lightweight database.
-Data resets when the server restarts.
+✔ Real-Time WebSocket Updates (Socket.IO)
+
+WebSocket events automatically broadcast changes to all connected clients:
+- task:created
+- task:updated
+- task:deleted
+- tasks:init (initial snapshot)
+
 

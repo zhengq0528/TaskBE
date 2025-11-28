@@ -1,6 +1,7 @@
 const Task = require('../models/task.model');
 const { tasks, generateId } = require('../models/task.store');
 const { validateTaskPayload } = require('../validation/task.validation');
+const { getIo } = require('../realtime/socket');
 
 // GET /api/tasks
 function getAllTasks(req, res) {
@@ -48,6 +49,11 @@ function createTask(req, res) {
 
   tasks.set(id, newTask);
 
+  const io = getIo();
+  if (io) {
+    io.emit('task:created', newTask);
+  }
+
   res.status(201).json({ data: newTask });
 }
 
@@ -89,6 +95,11 @@ function updateTask(req, res) {
   // SQL query UPDATE.....
   tasks.set(id, updatedTask);
 
+  const io = getIo();
+  if (io) {
+    io.emit('task:updated', updatedTask);
+  }
+
   res.json({ data: updatedTask });
 }
 
@@ -101,6 +112,11 @@ function deleteTask(req, res) {
   }
 
   tasks.delete(id);
+
+  const io = getIo();
+  if (io) {
+    io.emit('task:deleted', { id });
+  }
 
   res.status(204).send();
 }
