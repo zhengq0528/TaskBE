@@ -23,6 +23,14 @@ function validateTaskPayload(payload, { isUpdate = false } = {}) {
     errors.push("Field 'title' must be a string.");
   }
 
+  if (payload.title && payload.title.length > 100) {
+    errors.title = 'Title must be at most 100 characters';
+  }
+
+  if (payload.description && payload.description.length > 500) {
+    errors.description = 'Description must be at most 500 characters';
+  }
+
   if (payload.description && typeof payload.description !== 'string') {
     errors.push("Field 'description' must be a string.");
   }
