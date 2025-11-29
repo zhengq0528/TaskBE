@@ -41,6 +41,8 @@ It exposes a RESTful API for managing tasks using:
 - GET /api/tasks/:id — get one
 - PUT /api/tasks/:id — update
 - DELETE /api/tasks/:id — delete
+- POST /api/tasks/bulk/:ids - bulk delete
+- POST /api/tasks/bulk/:tasks - bulk create
 - Includes createdAt and updatedAt timestamps
 - Supports tags (string array)
 
@@ -50,6 +52,8 @@ WebSocket events automatically broadcast changes to all connected clients:
 - task:created
 - task:updated
 - task:deleted
+- task:bulkCreated
+- task:bulkDeleted
 - tasks:init (initial snapshot)
 
 
